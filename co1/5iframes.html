@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10x10 Iframe Grid</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            padding: 20px;
+        }
+        .iframe-box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>10x10 Iframe Grid</h2>
+    <div class="container">
+        <!-- Generating 100 iframes in a 10x10 grid -->
+        <script>
+            for (let i = 1; i <= 100; i++) {
+                document.write(`
+                    <div class="iframe-box" style="background-color: hsl(${i * 3}, 60%, 70%);">
+                        <iframe src="https://www.example.com" title="Iframe ${i}"></iframe>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+
+</body>
+</html>

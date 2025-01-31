@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Payslip Form</title>
+    <script>
+        function calculateSalary() {
+            const basicSalary = 37900;
+            const totalDays = 30;
+            
+            let presentDays = document.getElementById("daysPresent").value;
+            let accommodation = document.getElementById("accommodation").value;
+            
+            if (presentDays < 0 || presentDays > totalDays) {
+                alert("Invalid number of days! Must be between 0 and 30.");
+                return;
+            }
+
+            // Calculate salary proportionally
+            let totalSalary = (basicSalary * presentDays) / totalDays;
+
+            // Deduction: DNS (9% of basic)
+            let dnsDeduction = 0.09 * basicSalary;
+
+            // HRA Calculation
+            let hraPercentage = 0;
+            if (accommodation === "hostel") hraPercentage = 0.3;
+            else if (accommodation === "room") hraPercentage = 0.2;
+            
+            let hraAmount = basicSalary * hraPercentage;
+
+            // Final Salary
+            let finalSalary = totalSalary - dnsDeduction + hraAmount;
+
+            // Display results
+            document.getElementById("totalSalary").textContent = `Total Salary: ₹${totalSalary.toFixed(2)}`;
+            document.getElementById("dnsDeduction").textContent = `DNS Deduction (9% of Basic): ₹${dnsDeduction.toFixed(2)}`;
+            document.getElementById("hraAllowance").textContent = `HRA Allowance: ₹${hraAmount.toFixed(2)}`;
+            document.getElementById("finalSalary").textContent = `Final Salary: ₹${finalSalary.toFixed(2)}`;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 400px;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Employee Payslip Form</h2>
+    <div class="container">
+        <form onsubmit="calculateSalary(); return false;">
+            <label>Basic Salary:</label>
+            <input type="text" value="₹37,900" readonly>
+
+            <label>Number of Days Present (Max 30):</label>
+            <input type="number" id="daysPresent" required>
+
+            <label>Accommodation Type:</label>
+            <select id="accommodation" required>
+                <option value="hostel">Hostel (30% HRA)</option>
+                <option value="room">Room (20% HRA)</option>
+                <option value="home">Home (0% HRA)</option>
+            </select>
+
+            <button type="submit">Calculate Salary</button>
+        </form>
+
+        <div class="result" id="totalSalary"></div>
+        <div class="result" id="dnsDeduction"></div>
+        <div class="result" id="hraAllowance"></div>
+        <div class="result" id="finalSalary"></div>
+    </div>
+
+</body>
+</html>
